@@ -8,7 +8,7 @@ export const addFood = async (req, res) => {
     if (!req.file) {
         return res.send({ success: false, message: "Please upload an image" })
     }
-   let image_filename = `${req.file.filename}`
+    let image_filename = req.file.path;
 
     const food = new foodModel({
         name: req.body.name,
@@ -42,8 +42,8 @@ export const listFood = async (req, res) => {
 export const removeFood = async (req, res) => {
     try {
         const food = await foodModel.findById(req.body.id);
-     
-            fs.unlink(path.join(process.cwd(), "uploads", food.image), () => { })
+
+        // fs.unlink(path.join(process.cwd(), "uploads", food.image), () => { })
 
         await foodModel.findByIdAndDelete(req.body.id);
         res.send({ success: true, message: "Food Removed" })

@@ -60,3 +60,31 @@ export const registerUser = async (req, res) => {
     }
 }
 
+export const adminLogin = (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.send({ status: false, message: "Please enter email and password" })
+    }
+    try {
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASS) {
+            const adminPayload = {
+                email: email,
+                role: "admin"
+            };
+            const token = createToken(adminPayload, { expiresIn: "24hr" });
+            res.send({
+                status: true,
+                token,
+                email,
+                role: "admin",
+                expiresIn: "24hr"
+            });
+
+        } else {
+            res.send({ status: false, message: "Invalid credentials" })
+        }
+    } catch (error) {
+        return res.send({ status: false, message: "Something went wrong!" })
+    }
+}

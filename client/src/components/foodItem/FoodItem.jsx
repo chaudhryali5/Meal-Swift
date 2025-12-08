@@ -2,17 +2,17 @@ import React, { useContext } from 'react';
 import { StoreContext } from '../../StoreContext';
 
 const FoodItem = ({ id, name, price, image }) => {
- 
+
   const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
   const { url } = useContext(StoreContext)
-  
+
   const quantity = cartItems[id] || 0; // This is clean and correct
 
   return (
     <div className="relative h-[300px] sm:h-[330px] md:h-[350px] rounded-xl overflow-hidden group cursor-pointer shadow-md">
 
       <img
-        src={url + "/images/" + image}
+        src={image.startsWith('http') ? image : url + "/images/" + image}
         alt={name}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />

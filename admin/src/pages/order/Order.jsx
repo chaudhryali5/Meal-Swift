@@ -8,7 +8,7 @@ const Order = () => {
 
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.get(process.env.VITE_BACKEND_URL + "/api/v1/orderlist")
+      const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/orderlist")
       if (response.data.status) {
         setOrders(response.data.data)
       } else {

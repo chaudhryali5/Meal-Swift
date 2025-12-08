@@ -7,7 +7,7 @@ const List = () => {
 
   const fetchList = async () => {
     try {
-      const response = await axios.get(process.env.VITE_BACKEND_URL+"/api/v1/list");
+      const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/list");
       if (response.data.success) {
         setList(response.data.data);
       } else {
@@ -25,7 +25,7 @@ const List = () => {
 
   const removeFood = async (foodId) => {
     try {
-      const response = await axios.post(`${url}/api/v1/remove`, { id: foodId });
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/remove`, { id: foodId });
       await fetchList();
       if (response.data.success) {
         toast.success(response.data.message);
@@ -55,13 +55,13 @@ const List = () => {
         {/* Table Body */}
         <div>
           {list.map((item, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-200 items-center hover:bg-gray-50 transition-colors text-sm"
             >
               <div className="col-span-2">
-                <img 
-                  src={`${url}/images/${item.image}`} 
+                <img
+                  src={item.image.startsWith('http') ? item.image : `${import.meta.env.VITE_BACKEND_URL}/images/${item.image}`}
                   alt={item.name}
                   className="w-10 h-10 sm:w-10 sm:h-10 object-cover rounded-md border border-gray-200"
                 />

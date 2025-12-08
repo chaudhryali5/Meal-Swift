@@ -29,7 +29,7 @@ const Add = () => {
     }
 
     try {
-      const response = await axios.post(process.env.VITE_BACKEND_URL+"/api/v1/add", formData);
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/v1/add", formData);
 
       if (response.data.success) { // assuming your backend returns { success: true }
         // Reset form completely
@@ -39,13 +39,13 @@ const Add = () => {
           category: "Salad" // resets to default
         });
         setImage(null); // critical: must be null, not false!
-  
+
         // Optional: Show success message
         alert("Product added successfully!");
         toast.success(response.data.message)
       } else {
         alert("Failed to add product: " + (response.data.message || "Unknown error"));
-         toast.error(response.data.message)
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.error("Error adding product:", error);

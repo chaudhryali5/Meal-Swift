@@ -20,26 +20,31 @@ export const placeOrder = async (req, res) => {
 
         const line_items = req.body.items.map((item) => ({
             price_data: {
-                currency: "usd",
+                currency: "pkr",
                 product_data: {
                     name: item.name
                 },
                 unit_amount: item.price * 100
-
             },
             quantity: item.quantity
         }))
-        line_items.push({
-            price_data: {
-                currency: "usd",
-                product_data: {
-                    name: "Delivery Charges"
-                },
-                unit_amount: 100
 
-            },
-            quantity: 1
-        })
+        // Calculate delivery charges
+        const subtotal = req.body.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        const deliveryCharges = subtotal >= 999 ? 0 : 79;
+
+        if (deliveryCharges > 0) {
+            line_items.push({
+                price_data: {
+                    currency: "pkr",
+                    product_data: {
+                        name: "Delivery Charges"
+                    },
+                    unit_amount: deliveryCharges * 100
+                },
+                quantity: 1
+            })
+        }
 
         const sessions = await stripe.checkout.sessions.create({
             line_items: line_items,

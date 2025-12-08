@@ -8,7 +8,7 @@ import Add from '../pages/add/Add'
 import List from '../pages/list/List'
 import Order from '../pages/order/Order'
 const Router = () => {
-  const url ="http://localhost:5000"
+  // const url ="http://localhost:5000"
   return (
     <div>
       <ToastContainer/>
@@ -17,9 +17,9 @@ const Router = () => {
       <div className='flex '>
         <SideBar />
         <Routes>
-          <Route path='/add' element={<Add url={url} />} />
-          <Route path='/list' element={<List url={url}  />} />
-          <Route path='/orders' element={<Order url={url} />} />
+          <Route path='/add' element={<Add /> } />
+          <Route path='/list' element={<List   />} />
+          <Route path='/orders' element={<Order  />} />
         </Routes>
       </div>
     </div>

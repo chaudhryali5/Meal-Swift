@@ -16,7 +16,6 @@ const PREFIX = '/api/v1';
 
 app.use(express.json())
 app.use(cors())
-
 connectdb();
 
 app.use(PREFIX,foodRouter)

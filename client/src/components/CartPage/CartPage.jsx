@@ -5,9 +5,9 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
-  const { cartItems, menuList, removeFromCart, getTotalCartAmount,url } = useContext(StoreContext);
-const navigate=useNavigate()
-  
+  const { cartItems, menuList, removeFromCart, getTotalCartAmount, url } = useContext(StoreContext);
+  const navigate = useNavigate()
+
   const subtotal = getTotalCartAmount();
   const deliveryFee = subtotal === 0 ? 0 : (subtotal >= 999 ? 0 : 79);
   const total = subtotal + deliveryFee;
@@ -41,7 +41,7 @@ const navigate=useNavigate()
                     <div className="flex items-center justify-between md:col-span-2 gap-3">
                       <div className="flex items-center gap-3">
                         <img
-                          src={url+"/images/"+item.image}
+                          src={item.image.startsWith('http') ? item.image : url + "/images/" + item.image}
                           alt={item.name}
                           className="w-14 h-14 object-cover rounded-lg border"
                         />
@@ -143,7 +143,7 @@ const navigate=useNavigate()
                 </div>
               </div>
 
-              <button onClick={()=>navigate('/order')} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-md mt-6 transition">
+              <button onClick={() => navigate('/order')} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-md mt-6 transition">
                 Proceed to Checkout
               </button>
             </div>
