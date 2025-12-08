@@ -3,12 +3,12 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { assets } from '../../assets/assets.js'
 
-const Order = ({ url }) => {
+const Order = () => {
   const [orders, setOrders] = useState([])
 
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.get(url + "/api/v1/orderlist")
+      const response = await axios.get(process.env.VITE_BACKEND_URL + "/api/v1/orderlist")
       if (response.data.status) {
         setOrders(response.data.data)
       } else {

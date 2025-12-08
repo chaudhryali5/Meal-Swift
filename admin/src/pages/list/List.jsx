@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const List = ({ url }) => {
+const List = () => {
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
     try {
-      const response = await axios.get(`${url}/api/v1/list`);
+      const response = await axios.get(process.env.VITE_BACKEND_URL+"/api/v1/list");
       if (response.data.success) {
         setList(response.data.data);
       } else {

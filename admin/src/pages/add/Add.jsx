@@ -3,7 +3,7 @@ import { assets } from '../../assets/assets';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const Add = ({url}) => {
+const Add = () => {
   const [image, setImage] = useState(null); // null initially
   const [data, setData] = useState({
     name: "",
@@ -29,7 +29,7 @@ const Add = ({url}) => {
     }
 
     try {
-      const response = await axios.post(`${url}/api/v1/add`, formData);
+      const response = await axios.post(process.env.VITE_BACKEND_URL+"/api/v1/add", formData);
 
       if (response.data.success) { // assuming your backend returns { success: true }
         // Reset form completely
