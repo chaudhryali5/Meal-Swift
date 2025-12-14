@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { assets } from '../../assets/assets.js'
+import { ORDER_URI, UPDATE_STATUS } from '../../resources/apiAssets.js'
+import { useContext } from 'react'
+import { AdminContext } from '../../AdminContext.js'
 
 const Order = () => {
   const [orders, setOrders] = useState([])
+  const {token}=useContext(AdminContext)
 
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/orderlist")
+      const response = await axios.get(ORDER_URI,{headers:{token}})
       if (response.data.status) {
         setOrders(response.data.data)
       } else {
@@ -21,17 +25,19 @@ const Order = () => {
 
   const statusHandler = async (event, orderId) => {
     try {
-      const response = await axios.post(url + "/api/v1/status", { orderId, status: event.target.value })
+      const response = await axios.post(UPDATE_STATUS, { orderId, status: event.target.value })
       if (response.data.status) {
         await fetchAllOrders()
       }
     } catch (error) {
       toast.error("Error updating status")
+      console.log(error);
+
     }
   }
 
   useEffect(() => {
-    fetchAllOrders()
+    fetchAllOrders();
   }, [])
 
   return (
@@ -89,7 +95,7 @@ const Order = () => {
             <div className='w-full'>
               <select
                 onChange={(event) => statusHandler(event, order._id)}
-                value={order.status}
+                value={order.Status}
                 className='w-full bg-orange-50 border border-orange-200 text-gray-700 text-xs sm:text-sm rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer hover:bg-orange-100 transition-colors'
               >
                 <option value="Food Processing">Food Processing</option>

@@ -72,7 +72,7 @@ export const adminLogin = (req, res) => {
                 email: email,
                 role: "admin"
             };
-            const token = createToken(adminPayload, { expiresIn: "24hr" });
+            const token = jwt.sign(adminPayload, process.env.JWT_SECRET, { expiresIn: "24hr" });
             res.send({
                 status: true,
                 token,

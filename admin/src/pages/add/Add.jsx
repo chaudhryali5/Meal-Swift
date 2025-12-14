@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { assets } from '../../assets/assets';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { ADD_SERVICE } from '../../resources/apiAssets';
+import { useContext } from 'react';
+import { AdminContext } from '../../AdminContext';
 
 const Add = () => {
-  const [image, setImage] = useState(null); // null initially
+  const [image, setImage] = useState(null);
+  const {token}=useContext(AdminContext)
   const [data, setData] = useState({
     name: "",
     price: "",
@@ -29,19 +33,16 @@ const Add = () => {
     }
 
     try {
-      const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/v1/add", formData);
+      const response = await axios.post(ADD_SERVICE, formData,{headers:{token}});
 
-      if (response.data.success) { // assuming your backend returns { success: true }
-        // Reset form completely
+      if (response.data.success) { 
+      
         setData({
           name: "",
           price: "",
-          category: "Salad" // resets to default
+          category: "Salad" 
         });
-        setImage(null); // critical: must be null, not false!
-
-        // Optional: Show success message
-        alert("Product added successfully!");
+        setImage(null); 
         toast.success(response.data.message)
       } else {
         alert("Failed to add product: " + (response.data.message || "Unknown error"));

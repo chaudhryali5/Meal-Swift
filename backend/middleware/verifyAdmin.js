@@ -17,7 +17,7 @@ const verifyAdmin = (req, res, next) => {
         next();
     } catch (error) {
         console.log(error);
-        res.send({ status: falverifyAdminse, message: "Something went wrong!" })
+        res.send({ status: false , message: "Something went wrong!" })
 
     }
 }

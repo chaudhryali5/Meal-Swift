@@ -62,7 +62,7 @@ const StoreContextProvider = ({ children }) => {
   const fetchFoodList = async () => {
     const response = await axios.get(url + "/api/v1/list")
     // console.log(response.data.data)
-    setMenuList(response.data.data)
+    setMenuList(response.data.data || [])
   }
 
   const localCartData = async (token) => {
@@ -93,7 +93,7 @@ const StoreContextProvider = ({ children }) => {
 
   return (
     <StoreContext.Provider value={{
-      menuList,
+      menuList: menuList || [],
       cartItems,
       addToCart,
       removeFromCart,

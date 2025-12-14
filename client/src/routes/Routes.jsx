@@ -17,6 +17,7 @@ import { useState } from "react";
 import Verify from "../verify/Verify.jsx";
 import MyOrders from "../pages/myOrders/MyOrders.jsx";
 import MealMenu from "../pages/MenuPage/MealMenu.jsx";
+import Admin from "../pages/auth/Admin.jsx";
 
 
 const Router = () => {
@@ -39,6 +40,7 @@ const Router = () => {
           <Route path="/verify" element={<Verify />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/admin" element={<Admin/>} />
 
         </Routes>
 

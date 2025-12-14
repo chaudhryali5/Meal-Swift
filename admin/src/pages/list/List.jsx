@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { DELETE_SERVICE, LIST_SERVICE } from '../../resources/apiAssets';
+import { useContext } from 'react';
+import { AdminContext } from '../../AdminContext';
 
 const List = () => {
   const [list, setList] = useState([]);
+  const {token}=useContext(AdminContext)
 
   const fetchList = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/list");
+      const response = await axios.get(LIST_SERVICE,{headers:{token}});
       if (response.data.success) {
         setList(response.data.data);
       } else {
@@ -25,7 +29,7 @@ const List = () => {
 
   const removeFood = async (foodId) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/remove`, { id: foodId });
+      const response = await axios.post(DELETE_SERVICE, { id: foodId });
       await fetchList();
       if (response.data.success) {
         toast.success(response.data.message);

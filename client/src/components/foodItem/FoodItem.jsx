@@ -6,8 +6,7 @@ const FoodItem = ({ id, name, price, image }) => {
   const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
   const { url } = useContext(StoreContext)
 
-  const quantity = cartItems[id] || 0; // This is clean and correct
-
+  const quantity = cartItems[id] || 0;
   return (
     <div className="relative h-[300px] sm:h-[330px] md:h-[350px] rounded-xl overflow-hidden group cursor-pointer shadow-md">
 
@@ -27,7 +26,7 @@ const FoodItem = ({ id, name, price, image }) => {
           {quantity === 0 ? (
             <button
               onClick={() => addToCart(id)}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-2 rounded-lg text-sm font-medium transition shadow-lg"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 sm:px-6 md:px-8 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition shadow-lg"
             >
               Add to Cart
             </button>
@@ -35,16 +34,16 @@ const FoodItem = ({ id, name, price, image }) => {
             <div className="flex items-center bg-white rounded-lg shadow-lg overflow-hidden">
               <button
                 onClick={() => removeFromCart(id)}
-                className="w-12 h-full bg-red-100 hover:bg-red-200 text-red-600 font-bold text-xl"
+                className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 bg-red-100 hover:bg-red-200 text-red-600 font-bold text-lg sm:text-xl"
               >
                 −
               </button>
-              <span className="px-6 py-2 font-bold text-orange-600 text-lg min-w-8 text-center">
+              <span className="px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 font-bold text-orange-600 text-sm sm:text-base md:text-lg min-w-6 sm:min-w-8 text-center">
                 {quantity}
               </span>
               <button
                 onClick={() => addToCart(id)}
-                className="w-12 h-full bg-orange-500 hover:bg-orange-600 text-white font-bold text-xl"
+                className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg sm:text-xl"
               >
                 +
               </button>
